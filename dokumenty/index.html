@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumenty | ZŠ Divišov</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e40af;
+            --accent: #3b82f6;
+            --accent-light: rgba(59, 130, 246, 0.1);
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --radius-xl: 32px;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --shadow-sm: 0 10px 15px -3px rgba(0, 0, 0, 0.04);
+            --glass: rgba(255, 255, 255, 0.85);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 15% 25%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at 85% 75%, rgba(59, 130, 246, 0.05) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+        header {
+            position: sticky; top: 20px; z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 100px;
+            padding: 8px 20px;
+            margin: 20px auto 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            width: calc(100% - 40px); max-width: 1360px;
+        }
+
+        .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .brand-logo { 
+            width: 48px; height: 48px; background: white; border-radius: 14px; 
+            display: flex; align-items: center; justify-content: center; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08); overflow: hidden; border: 1px solid rgba(0,0,0,0.05);
+        }
+        .brand-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+        .brand-name { font-weight: 800; font-size: 20px; color: var(--primary); letter-spacing: -0.8px; }
+
+        nav ul { display: flex; list-style: none; gap: 4px; }
+        nav a { 
+            text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 14px; 
+            padding: 10px 18px; border-radius: 100px; transition: 0.3s;
+        }
+        nav a:hover { background: rgba(0,0,0,0.05); }
+        nav a.active { background: var(--primary); color: white; }
+
+        .page-header { margin-bottom: 40px; text-align: center; padding-top: 20px; }
+        .page-header h1 { font-size: 42px; font-weight: 800; color: var(--primary); letter-spacing: -1.5px; }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 768px) { .docs-grid { grid-template-columns: 1fr; } }
+
+        .doc-card {
+            background: var(--card);
+            border-radius: var(--radius-xl);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .doc-num { font-size: 12px; font-weight: 800; color: var(--accent); letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        .doc-card h3 { font-size: 19px; font-weight: 800; color: var(--primary); margin-bottom: 20px; line-height: 1.3; }
+
+        .folder-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            background: #f1f5f9;
+            border-radius: var(--radius-md);
+            transition: 0.2s;
+        }
+
+        .folder-link:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .folder-link svg { width: 18px; height: 18px; opacity: 0.6; }
+
+        /* --- VYLEPŠENÝ FOOTER --- */
+        .site-footer {
+            background: var(--primary);
+            color: white;
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .site-footer { grid-template-columns: 1fr; text-align: center; gap: 30px; }
+        }
+
+        .footer-col h4 {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .footer-col p { opacity: 0.8; font-size: 15px; margin-bottom: 12px; }
+        .footer-col a { color: white; text-decoration: none; transition: 0.2s; font-weight: 600; }
+        .footer-col a:hover { color: var(--accent); }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px 0 40px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <a href="#" class="brand">
+            <div class="brand-logo"><img src="https://i.imgur.com/PN4yT7e.png" alt="Logo"></div>
+            <span class="brand-name">Základní škola Divišov</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#">Domů</a></li>
+                <li><a href="#" class="active">Dokumenty</a></li>
+                <li><a href="#">Družina</a></li>
+                <li><a href="#">Jídelna</a></li>
+                <li><a href="https://zsdivisov.edookit.net" target="_blank">Edookit ➔</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1>Úřední deska a dokumenty</h1>
+    </div>
+
+    <div class="docs-grid">
+        <div class="doc-card">
+            <div>
+                <span class="doc-num">SLOŽKA 01</span>
+                <h3>Školní řád, vnitřní řád školní družiny a vnitřní řád školní jídelny</h3>
+            </div>
+            <a href="https://drive.google.com/drive/folders/0B_ihxoAtV9mZYWwyUnV4d3RvWnc?resourcekey=0-NL-_QfqGeFHikKsFQpXMCw" target="_blank" class="folder-link">
+                Otevřít dokumenty 
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </a>
+        </div>
+
+        <div class="doc-card">
+            <div>
+                <span class="doc-num">SLOŽKA 02</span>
+                <h3>Školní vzdělávací program Venkov výhodou a ŠVP školní družiny</h3>
+            </div>
+            <a href="https://drive.google.com/drive/folders/0B_ihxoAtV9mZRzR5dHVwOGV0cmc?resourcekey=0-U_7-PRC0R-0A7DurWpnDjw" target="_blank" class="folder-link">
+                Otevřít dokumenty
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </a>
+        </div>
+
+        <div class="doc-card">
+            <div>
+                <span class="doc-num">SLOŽKA 03</span>
+                <h3>Výroční zprávy</h3>
+            </div>
+            <a href="https://drive.google.com/drive/folders/0B_ihxoAtV9mZUDZkN2w0N1dXaDA?resourcekey=0-FZ-YH6jGRWcZNxYU8szZ3g" target="_blank" class="folder-link">
+                Otevřít dokumenty
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </a>
+        </div>
+
+        <div class="doc-card">
+            <div>
+                <span class="doc-num">SLOŽKA 04</span>
+                <h3>Rozvojové a metodické dokumenty</h3>
+            </div>
+            <a href="https://drive.google.com/drive/folders/0B_ihxoAtV9mZbGlRQWRLVE1YMXM?resourcekey=0-2DquzlcEM482XAzvjpW26w" target="_blank" class="folder-link">
+                Otevřít dokumenty
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </a>
+        </div>
+
+        <div class="doc-card">
+            <div>
+                <span class="doc-num">SLOŽKA 05</span>
+                <h3>Pro rodiče</h3>
+            </div>
+            <a href="https://drive.google.com/drive/folders/0B_ihxoAtV9mZSmR0emVnRk02aEk?resourcekey=0-M5Khca8sfbHIf7enwk_J8w" target="_blank" class="folder-link">
+                Otevřít dokumenty
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </a>
+        </div>
+
+        <div class="doc-card">
+            <div>
+                <span class="doc-num">SLOŽKA 06</span>
+                <h3>Pro žáky</h3>
+            </div>
+            <a href="https://drive.google.com/drive/folders/0B_ihxoAtV9mZYjF1VUJLZVFEVHc?resourcekey=0-2Or6v6SBsCgE48-kmBS-Zg" target="_blank" class="folder-link">
+                Otevřít dokumenty
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </a>
+        </div>
+
+        <div class="doc-card">
+            <div>
+                <span class="doc-num">SLOŽKA 07</span>
+                <h3>Dokumenty školské rady</h3>
+            </div>
+            <a href="https://drive.google.com/drive/folders/0B_ihxoAtV9mZaHFDcnlSalU1WEU?resourcekey=0-Fxxu4CoYXN_MMj3CniVOnQ" target="_blank" class="folder-link">
+                Otevřít dokumenty
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </a>
+        </div>
+
+        <div class="doc-card">
+            <div>
+                <span class="doc-num">SLOŽKA 08</span>
+                <h3>Olympiády a soutěže</h3>
+            </div>
+            <a href="https://drive.google.com/drive/folders/0B2nBZsx8GcXqRU5VcF9JYlRWZXM?resourcekey=0-xcWzgzHYj9u1AySt79x0tQ" target="_blank" class="folder-link">
+                Otevřít dokumenty
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </a>
+        </div>
+
+        <div class="doc-card">
+            <div>
+                <span class="doc-num">SLOŽKA 09</span>
+                <h3>Kroniky</h3>
+            </div>
+            <a href="https://drive.google.com/drive/folders/0B_ihxoAtV9mZRFpLaEk5QXUyMVU?resourcekey=0-4W69vIzK_BX5iWNpHZkktA" target="_blank" class="folder-link">
+                Otevřít dokumenty
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </a>
+        </div>
+
+        <div class="doc-card">
+            <div>
+                <span class="doc-num">SLOŽKA 10</span>
+                <h3>Strategie školy</h3>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1aF39105wuTog09AYSG01sVJiKwekrQTd" target="_blank" class="folder-link">
+                Otevřít dokumenty
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            </a>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-col">
+            <h4>O škole</h4>
+            <p>Základní škola Divišov poskytuje moderní vzdělání s důrazem na přátelskou atmosféru a individuální přístup k žákům.</p>
+            <p>📍 Na Sadech 260, 257 26 Divišov</p>
+        </div>
+        <div class="footer-col">
+            <h4>Kontakt</h4>
+            <p>📞 Kancelář: <a href="tel:+420317855253">317 855 253</a></p>
+            <p>📞 Školní jídelna: <a href="tel:+420317855234">317 855 234</a></p>
+            <p>📧 Email: <a href="mailto:info@zsdivisov.cz">info@zsdivisov.cz</a></p>
+        </div>
+        <div class="footer-col">
+            <h4>Rychlé odkazy</h4>
+            <p><a href="https://zsdivisov.edookit.net">Edookit login</a></p>
+            <p><a href="#">Jídelní lístek</a></p>
+            <p><a href="#">Kalendář akcí</a></p>
+        </div>
+    </footer>
+
+    <div class="footer-bottom">
+        &copy; 2026 Základní škola Divišov | Všechna práva vyhrazena
+    </div>
+</div>
+
+</body>
+</html>
