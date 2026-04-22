@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Základní škola Divišov</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Definice Design Systému 2026 */
+            --primary: #0f172a;       /* Navy Blue */
+            --secondary: #1e40af;     /* Royal Blue */
+            --accent: #3b82f6;        /* Azure Blue */
+            --accent-light: rgba(59, 130, 246, 0.1);
+            --bg: #f8fafc;            /* Ultra Light Gray */
+            --card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --radius-xl: 32px;        /* Moderní Bento rádius */
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --shadow-sm: 0 10px 15px -3px rgba(0, 0, 0, 0.04);
+            --glass: rgba(255, 255, 255, 0.85);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Pozadí s jemným gradientem */
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 15% 25%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at 85% 75%, rgba(59, 130, 246, 0.05) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; width: 100%; }
+
+        /* --- NAVIGACE (GLASSMORPHISM) --- */
+        header {
+            position: sticky; top: 20px; z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 100px;
+            padding: 8px 20px;
+            margin: 20px auto 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            width: calc(100% - 40px); max-width: 1360px;
+        }
+
+        .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        
+        /* LOGO ŠKOLY Z ODKAZU */
+        .brand-logo { 
+            width: 48px; height: 48px; 
+            background: white; 
+            border-radius: 14px; 
+            display: flex; align-items: center; justify-content: center; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .brand-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+        .brand-name { font-weight: 800; font-size: 20px; color: var(--primary); letter-spacing: -0.8px; }
+
+        nav ul { display: flex; list-style: none; gap: 4px; }
+        nav a { 
+            text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 14px; 
+            padding: 10px 18px; border-radius: 100px; transition: 0.3s;
+        }
+        nav a:hover { background: rgba(0,0,0,0.05); }
+        nav a.active { background: var(--primary); color: white; }
+
+        /* --- HERO BANNER --- */
+        .hero-banner {
+            width: 100%; height: 450px;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.4)), url('https://scontent-prg1-1.xx.fbcdn.net/v/t39.30808-6/484094052_1185572436595162_2930563298062351965_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_ohc=UuoA7f-AXV8Q7kNvwF2AHOG&_nc_oc=AdrhhQ-Y2hdhggKP4ywTem4J40n0FYkIgS9ni0-FiRjwnzKNfitg0osDT-9WXilOojIVE8BYgbiu-49n-MDiPJ6t&_nc_zt=23&_nc_ht=scontent-prg1-1.xx&_nc_gid=BZP-nBa_mbwjLDZMTM8a8Q&_nc_ss=7a389&oh=00_Af3BAuHw5z6Ml9G3R0lE6TOvMZw0MNbVikB6hRwsGjeBog&oe=69EEA390');
+            background-size: cover; background-position: center;
+            border-radius: var(--radius-xl);
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 60px; color: white; margin-bottom: 50px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+        .hero-banner h2 { font-size: 56px; font-weight: 800; letter-spacing: -2.5px; margin-bottom: 10px; line-height: 1.1; }
+        .hero-banner p { font-size: 20px; opacity: 0.9; max-width: 600px; font-weight: 500; }
+
+        /* --- MŘÍŽKA (BENTO LAYOUT) --- */
+        .main-grid { display: grid; grid-template-columns: 1fr 400px; gap: 40px; margin-bottom: 60px; }
+        @media (max-width: 1100px) { .main-grid { grid-template-columns: 1fr; } }
+
+        /* --- ARTIKLY --- */
+        .section-header { margin-bottom: 30px; }
+        .section-header h3 { font-size: 32px; font-weight: 800; color: var(--primary); letter-spacing: -1.2px; }
+
+        .article-card {
+            background: var(--card);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+        .article-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px -15px rgba(0,0,0,0.08); }
+        
+        .article-img-wrapper { width: 100%; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 25px; display: none; }
+        .article-img { width: 100%; height: auto; max-height: 500px; object-fit: cover; display: block; }
+
+        .article-meta { display: flex; gap: 12px; margin-bottom: 15px; align-items: center; }
+        .tag { background: var(--accent-light); color: var(--accent); padding: 6px 14px; border-radius: 100px; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .date { color: var(--text-muted); font-size: 14px; font-weight: 600; }
+        .article-title { font-size: 32px; font-weight: 800; color: var(--primary); margin-bottom: 20px; line-height: 1.2; letter-spacing: -0.5px; }
+        .article-content { color: var(--text-muted); font-size: 17px; margin-bottom: 30px; }
+
+        /* --- SIDEBAR BENTO BOXY --- */
+        .sidebar { display: flex; flex-direction: column; gap: 24px; }
+        .bento-card {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        .bento-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: var(--accent); }
+        .bento-header svg { width: 20px; height: 20px; fill: currentColor; }
+        .bento-title { font-size: 15px; font-weight: 800; text-transform: uppercase; color: var(--primary); letter-spacing: 0.5px; }
+        
+        .datova-schranka { background: var(--primary); color: white; display: flex; justify-content: space-between; align-items: center; }
+        .ds-code { font-family: monospace; font-size: 20px; font-weight: 700; color: var(--accent); }
+
+        .contact-group { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #f1f5f9; }
+        .contact-group:last-child { margin-bottom: 0; border: none; padding-bottom: 0; }
+        .contact-name { display: block; font-weight: 800; font-size: 16px; color: var(--primary); }
+        .contact-role { display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+        .contact-phone { font-size: 15px; font-weight: 600; color: var(--text-main); }
+        .contact-link { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 14px; }
+
+        .quick-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .q-link { 
+            background: #f1f5f9; padding: 15px; border-radius: 15px; text-decoration: none; 
+            color: var(--primary); font-weight: 700; font-size: 13px; text-align: center;
+            transition: 0.2s;
+        }
+        .q-link:hover { background: var(--primary); color: white; }
+
+        footer { background: var(--primary); color: white; padding: 80px 0 40px; text-align: center; margin-top: 60px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <a href="#" class="brand">
+                <div class="brand-logo">
+                    <img src="https://i.imgur.com/PN4yT7e.png" alt="Logo ZŠ Divišov">
+                </div>
+                <span class="brand-name">Základní škola Divišov</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/zsdivisov/" class="active">Domů</a></li>
+                    <li><a href="/zsdivisov/dokumenty">Dokumenty</a></li>
+                    <li><a href="/zsdivisov/druzina">Družina</a></li>
+                    <li><a href="/zsdivisov/jidelna">Jídelna</a></li>
+                    <li><a href="https://zsdivisov.edookit.net" target="_blank" style="color:var(--accent); font-weight:800;">Edookit ➔</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="hero-banner">
+            <div class="hero-content">
+                <h2>Škola pro budoucnost</h2>
+                <p>Inspirativní prostředí pro vzdělávání v srdci Divišova. Tradice spojená s moderními technologiemi.</p>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <main>
+                <div class="section-header">
+                    <h3>Nejnovější aktuality</h3>
+                </div>
+                <div id="news-loader" style="text-align:center; padding: 50px; font-weight:700;">Načítám novinky...</div>
+                <div id="news-container"></div>
+            </main>
+
+            <aside class="sidebar">
+                <div class="bento-card datova-schranka">
+                    <span style="font-weight: 800; font-size: 13px;">DATOVÁ SCHRÁNKA</span>
+                    <span class="ds-code">gcbmhby</span>
+                </div>
+
+                <div class="bento-card">
+                    <div class="bento-header">
+                        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        <h3 class="bento-title">Vedení školy</h3>
+                    </div>
+                    <div class="contact-group">
+                        <span class="contact-role">Ředitel</span>
+                        <span class="contact-name">Mgr. Petr Lunga</span>
+                        <span class="contact-phone">602 103 641</span>
+                    </div>
+                    <div class="contact-group">
+                        <span class="contact-role">Zástupkyně</span>
+                        <span class="contact-name">Mgr. Zuzana Šturcová</span>
+                        <span class="contact-phone">317 855 253</span>
+                    </div>
+                </div>
+
+                <div class="bento-card">
+                    <div class="bento-header">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <h3 class="bento-title">Kontakty</h3>
+                    </div>
+                    <div class="contact-group">
+                        <span class="contact-role">Sborovna</span>
+                        <span class="contact-name">607 078 300</span>
+                    </div>
+                    <div class="contact-group">
+                        <span class="contact-role">Jídelna / Družina</span>
+                        <span class="contact-name">702 177 350 / 607 029 856</span>
+                    </div>
+                </div>
+
+                <div class="bento-card">
+                    <div class="bento-header">
+                        <svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+                        <h3 class="bento-title">Odkazy</h3>
+                    </div>
+                    <div class="quick-links">
+                        <a href="https://zsdivisov.edookit.net" target="_blank" class="q-link">Edookit</a>
+                        <a href="#" class="q-link">Jídelníček</a>
+                        <a href="#" class="q-link">Kalendář</a>
+                        <a href="#" class="q-link">Dokumenty</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Základní škola Divišov | Na Sadech 260, 257 26 Divišov</p>
+        </footer>
+    </div>
+
+<script>
+async function loadPortalContent() {
+    const loader = document.getElementById('news-loader');
+    const container = document.getElementById('news-container');
+    const workerApiUrl = 'https://api.bilcusadam.workers.dev/';
+
+    try {
+        const response = await fetch(workerApiUrl);
+        const data = await response.json();
+        loader.style.display = 'none';
+        
+        if (!data?.feed?.entry) {
+            container.innerHTML = `<p>Žádné aktuality nebyly nalezeny.</p>`;
+            return;
+        }
+
+        data.feed.entry.forEach(post => {
+            const title = post.title?.$t || 'Bez názvu';
+            const date = post.published?.$t ? new Date(post.published.$t).toLocaleDateString('cs-CZ') : '';
+            let content = post.content ? post.content.$t : (post.summary ? post.summary.$t : "");
+
+            // HD Image Logic
+            let imgUrl = "";
+            if (post.media$thumbnail) {
+                imgUrl = post.media$thumbnail.url.replace(/\/s[0-9]+(-c)?\//g, '/s1600/');
+            }
+
+            const article = document.createElement('article');
+            article.className = 'article-card';
+            article.innerHTML = `
+                ${imgUrl ? `<div class="article-img-wrapper" style="display:block;"><img src="${imgUrl}" class="article-img" loading="lazy"></div>` : ''}
+                <div class="article-meta"><span class="tag">Aktualita</span><span class="date">${date}</span></div>
+                <h2 class="article-title">${title}</h2>
+                <div class="article-content">${content.substring(0, 300)}...</div>
+                <a href="#" class="read-more" style="color:var(--accent); font-weight:800; text-decoration:none;">Číst celý článek ➔</a>
+            `;
+            container.appendChild(article);
+        });
+    } catch (e) {
+        loader.innerHTML = "Chyba při načítání dat.";
+    }
+}
+window.onload = loadPortalContent;
+</script>
+
+</body>
+</html>
